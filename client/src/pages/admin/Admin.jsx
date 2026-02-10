@@ -1,59 +1,121 @@
-import { useState } from "react"
-import api from "../../api/api"
-import { toast } from "react-hot-toast"
+import { useState } from "react";
 
-export default function Admin() {
-    const [data, setData] =useState({
-        title:"",
-        discrption:"",
-        image:"",
-        live:"",
-        github:""
-    })
- 
-    // handleSubmit
+import api from "../../api/api";
 
-    const handleSubmit = async (e)=>{
-        e.preventDefault();
-        await api.post("/project", data),
-        toast.success("project added")
-    }
-// handlechange
-const handleChange = (e)=>{
-    setData({...data, [e.target.name] :e.target.value})
-}
+import {toast} from "react-hot-toast"
+function Admin() {
+  const [data, setData] = useState({
+    title: "",
+    description: "",
+    image: "",
+    github: "",
+    live: "",
+  });
+
+  const handleChange = (e) => {
+    setData({ ...data, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await api.post("/project", data);
+    toast.success("Project added");
+  };
+
   return (
-    <div className="text-black bg-gray-500">
-        <h2 className="text-3xl">add project</h2>
-        <form onSubmit={handleSubmit}> 
+    <div className="min-h-screen bg-gray-950 flex items-center justify-center px-4">
+      <div className="w-full max-w-lg bg-gray-900 rounded-2xl shadow-xl p-8">
+        <h2 className="text-2xl font-bold text-white mb-6">
+          Add New Project
+        </h2>
+
+        <form className="space-y-5" onSubmit={handleSubmit}>
+          {/* Title */}
+          <div>
+            <label className="block text-sm text-gray-400 mb-1">
+              Project Title
+            </label>
             <input
-                placeholder="title"
-                onChange={handleChange}
+              type="text"
+              name="title"
+              value={data.title}
+              onChange={handleChange}
+              className="w-full rounded-lg bg-gray-800 border border-gray-700 text-white px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="My Portfolio"
             />
-            <input 
-                placeholder="discrption"
-                onChange={handleChange}
+          </div>
 
-
+          {/* Description */}
+          <div>
+            <label className="block text-sm text-gray-400 mb-1">
+              Description
+            </label>
+            <textarea
+              name="description"
+              value={data.description}
+              onChange={handleChange}
+              rows="3"
+              className="w-full rounded-lg bg-gray-800 border border-gray-700 text-white px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Short project description..."
             />
-            <input 
-                placeholder="image url"
-                onChange={handleChange}
-                
-                />
+          </div>
+
+          {/* Image */}
+          <div>
+            <label className="block text-sm text-gray-400 mb-1">
+              Image URL
+            </label>
             <input
-                placeholder="github"
-                onChange={handleChange}
-
+              type="text"
+              name="image"
+              value={data.image}
+              onChange={handleChange}
+              className="w-full rounded-lg bg-gray-800 border border-gray-700 text-white px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="https://image.com/project.png"
             />
-            <input 
-                placeholder="deployment"
-                onChange={handleChange}
+          </div>
 
+          {/* GitHub */}
+          <div>
+            <label className="block text-sm text-gray-400 mb-1">
+              GitHub Link
+            </label>
+            <input
+              type="text"
+              name="github"
+              value={data.github}
+              onChange={handleChange}
+              className="w-full rounded-lg bg-gray-800 border border-gray-700 text-white px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="https://github.com/username/repo"
             />
-            <button className="bg-blue-700 rounded-full px-4 py-3">save</button>
+          </div>
+
+          {/* Live */}
+          <div>
+            <label className="block text-sm text-gray-400 mb-1">
+              Live Demo
+            </label>
+            <input
+              type="text"
+              name="live"
+              value={data.live}
+              onChange={handleChange}
+              className="w-full rounded-lg bg-gray-800 border border-gray-700 text-white px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="https://myproject.com"
+            />
+          </div>
+
+          {/* Button */}
+          <button
+            type="submit"
+            className="w-full bg-blue-600 hover:bg-blue-700 transition rounded-lg py-2 font-semibold text-white"
+          >
+            Save Project
+          </button>
         </form>
-      
+      </div>
     </div>
-  )
+  );
 }
+
+export default Admin;

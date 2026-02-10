@@ -6,7 +6,7 @@ import { Toaster } from "react-hot-toast"
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <Toaster className=""/>
+    <Toaster className="flex"/>
     <App />
   </StrictMode>,
 )
