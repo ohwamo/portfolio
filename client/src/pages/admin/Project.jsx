@@ -1,9 +1,10 @@
 
 import { useEffect, useState } from "react"
-import api from "../api/api"
-
+import { useNavigate } from "react-router-dom"
+import api from "../../api/api"
 export default function Project() {
   const [projects, setProjects] = useState([])
+  const navigate=useNavigate()
 
   useEffect(() => {
     api.get("/project")
@@ -13,8 +14,10 @@ export default function Project() {
 
   return (
     <div className="min-h-screen bg-gray-900 text-white p-10">
+      <button className="flex top-5 right-3 " onClick={()=>navigate("/admin/create")}>
+        create Project
+      </button>
       <h1 className="text-3xl mb-6">My Projects</h1>
-
       <div className="grid md:grid-cols-3 gap-6">
         {projects.map(p => (
           <div key={p._id} className="bg-gray-800 p-4 rounded-lg">

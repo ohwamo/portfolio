@@ -1,5 +1,5 @@
-import { NavLink } from "react-router-dom"
-function AdminLayout ({children}) {
+import { NavLink, Outlet } from "react-router-dom"
+function AdminLayout () {
     return(
         <div className="flex bg-gray-900 text-white min-h-screen">
         <aside className="p-6 bg-gray-800 w-64">
@@ -19,7 +19,8 @@ function AdminLayout ({children}) {
 
         </aside>
         <main className="flex-1 p-6">
-            {children}
+            {/* {children} */}
+            <Outlet />
         
         </main>
         </div>

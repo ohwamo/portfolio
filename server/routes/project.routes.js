@@ -5,6 +5,6 @@ import { protect } from "../middleware/auth.js"
 const router = express.Router()
 
 router.get("/", getProject)
-router.post("/", protect, createProject)
+router.post("/create", protect, createProject)
 
 export default router;

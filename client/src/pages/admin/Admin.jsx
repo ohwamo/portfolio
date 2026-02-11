@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import api from "../../api/api";
 
-import {toast} from "react-hot-toast"
+import { toast} from "react-hot-toast"
 function Admin() {
   const [data, setData] = useState({
     title: "",
@@ -18,9 +18,22 @@ function Admin() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await api.post("/project", data);
+    try {
+    await api.post("/project/create", data);
     toast.success("Project added");
+    } catch (err){
+      toast.error("fialed")
+    }
   };
+  const uploadImage = async e => {
+  const file = e.target.files[0]
+  const formData = new FormData()
+  formData.append("image", file)
+
+  const res = await api.post("/upload", formData)
+  setData({ ...data, image: res.data.url })
+}
+
 
   return (
     <div className="min-h-screen bg-gray-950 flex items-center justify-center px-4">
@@ -102,6 +115,20 @@ function Admin() {
               onChange={handleChange}
               className="w-full rounded-lg bg-gray-800 border border-gray-700 text-white px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="https://myproject.com"
+            />
+          </div>
+          {/* upload imags */}
+            <div>
+            <label className="block text-sm text-gray-400 mb-1">
+              Images
+            </label>
+            <input
+              type="file"
+              name="file"
+              value={data.github}
+              onChange={uploadImage}
+              className="w-full rounded-lg bg-gray-800 border border-gray-700 text-white px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="images"
             />
           </div>
 
